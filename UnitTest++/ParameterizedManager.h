@@ -15,7 +15,7 @@ namespace UnitTest
 	{
 	public:
 		static ParameterizedManager & getInstance();
-		TestListNode* const getCurrentTest() const { return _currentTest; }
+		Test* const getCurrentTest() const { return _currentTest; }
 		bool isCurrentTest(TestDetails const * const details) const;
 		void beginExecute(TestDetails const * const details);
 		void endExecute(TestDetails const * const details);
@@ -39,7 +39,7 @@ namespace UnitTest
 
 		ParameterizedManager();
 		virtual ~ParameterizedManager();
-		TestListNode* const retrieveTest(TestDetails const * const details);
+		Test* const retrieveTest(TestDetails const * const details);
 		void iterate(TestParameterAbstract* const parameterized);
 		bool stackParameter(TestParameterAbstract* const parameterized, bool & outFirstIndex);
 		bool hasMoreIndexes(TestParameterAbstract* const parameterized);
@@ -50,8 +50,8 @@ namespace UnitTest
 
 		static vector<int> parseParameter(const string & parametersArrayRange, string & outParameterName);
 
-		TestListNode* _currentTest;
-		TestListNode* _nextTestBackup;
+		Test* _currentTest;
+		Test* _nextTestBackup;
 		vector<TestParameterAbstract*> _stack;
 		IgnoredIndexesMap _ignoredIndexes;
 		IgnoredIndexesByNameMap _pendingIgnoredIndexes;

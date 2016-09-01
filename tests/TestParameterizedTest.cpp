@@ -337,32 +337,32 @@ SUITE(ParameterizedTest)
 
 	//////////
 
-	vector<TestListNode*> currentTestsNodes;
+	vector<Test*> currentTests;
 	TEST(NoDeadLoopInTestList)
 	{
 		pzOneTwo(); // Important for perform looping
 
-		for (TestListNode* iNode = Test::GetTestList().GetHead(); iNode != nullptr; iNode = iNode->m_next)
+		for (Test* iTest = Test::GetTestList().GetHead(); iTest != nullptr; iTest = iTest->m_nextTest)
 		{
-			REQUIRE CHECK(iNode != iNode->m_next);
-			currentTestsNodes.push_back(iNode);
+			REQUIRE CHECK(iTest != iTest->m_nextTest);
+			currentTests.push_back(iTest);
 		}
 	}
 
 	TEST(NoDeadLoopInTestList_Verify)
 	{
-		vector<TestListNode*> expectedNodes;
+		vector<Test*> expectedTests;
 
 		for (size_t i = 0; i < pzOneTwo.values().size(); i++) // tested vector contains repeated values because it is filled by parameterized test
 		{
-			for (TestListNode* iNode = Test::GetTestList().GetHead(); iNode != nullptr; iNode = iNode->m_next)
+			for (Test* iTest = Test::GetTestList().GetHead(); iTest != nullptr; iTest = iTest->m_nextTest)
 			{
-				expectedNodes.push_back(iNode);
+				expectedTests.push_back(iTest);
 			}
 		}
 
-		REQUIRE CHECK_EQUAL(expectedNodes.size(), currentTestsNodes.size());
-		CHECK_ARRAY_EQUAL(expectedNodes, currentTestsNodes, expectedNodes.size());
+		REQUIRE CHECK_EQUAL(expectedTests.size(), currentTests.size());
+		CHECK_ARRAY_EQUAL(expectedTests, currentTests, expectedTests.size());
 	}
 
 	//////////

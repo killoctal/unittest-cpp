@@ -28,14 +28,14 @@ ParameterizedManager & ParameterizedManager::getInstance()
 }
 
 
-TestListNode* const ParameterizedManager::retrieveTest(TestDetails const * const details)
+Test* const ParameterizedManager::retrieveTest(TestDetails const * const details)
 {
-	for (TestListNode* iNode = Test::GetTestList().GetHead(); iNode != nullptr; iNode = iNode->m_next)
+	for (Test* iTest = Test::GetTestList().GetHead(); iTest != nullptr; iTest = iTest->m_nextTest)
 	{
 		// Warning: do not use TestDetails::sameTest here for optimisation reason
-		if (&iNode->m_test->m_details == details)
+		if (&iTest->m_details == details)
 		{
-			return iNode;
+			return iTest;
 		}
 	}
 
@@ -52,7 +52,7 @@ bool ParameterizedManager::isCurrentTest(TestDetails const * const details) cons
 		return false;
 	}
 
-	return _currentTest->m_test->m_details.sameTest(*details);
+	return _currentTest->m_details.sameTest(*details);
 }
 
 
@@ -91,13 +91,13 @@ void ParameterizedManager::beginExecute(TestDetails const * const details)
 	{
 		if (isCurrentTest(details))
 		{
-			_currentTest->m_next = _nextTestBackup;
+			_currentTest->m_nextTest = _nextTestBackup;
 			_executing = true;
 		}
 		return;
 	}
 	_currentTest = retrieveTest(details);
-	_nextTestBackup = _currentTest->m_next;
+	_nextTestBackup = _currentTest->m_nextTest;
 	_iterationDone = false;
 	_executing = true;
 }
@@ -131,7 +131,7 @@ void ParameterizedManager::endExecute(TestDetails const * const details)
 	}
 	else
 	{
-		_currentTest->m_next = _currentTest; // Loop itself
+		_currentTest->m_nextTest = _currentTest; // Loop itself
 	}
 
 	_iterationDone = false;
