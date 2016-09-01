@@ -6,6 +6,7 @@
 namespace UnitTest {
 
    class Test;
+   class TestDetails;
 
    class UNITTEST_LINKAGE TestList
    {
@@ -14,6 +15,7 @@ namespace UnitTest {
       void Add (Test* test);
 
       Test* GetHead() const;
+	  Test* const find(TestDetails const * const details);
 
    private:
       Test* m_head;

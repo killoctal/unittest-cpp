@@ -28,23 +28,6 @@ ParameterizedManager & ParameterizedManager::getInstance()
 }
 
 
-Test* const ParameterizedManager::retrieveTest(TestDetails const * const details)
-{
-	for (Test* iTest = Test::GetTestList().GetHead(); iTest != nullptr; iTest = iTest->m_nextTest)
-	{
-		// Warning: do not use TestDetails::sameTest here for optimisation reason
-		if (&iTest->m_details == details)
-		{
-			return iTest;
-		}
-	}
-
-	string errorMessage = "Impossible to retrieve test ";
-	errorMessage += details->testName;
-	throw runtime_error(errorMessage);
-}
-
-
 bool ParameterizedManager::isCurrentTest(TestDetails const * const details) const
 {
 	if (_currentTest == nullptr)
@@ -96,7 +79,15 @@ void ParameterizedManager::beginExecute(TestDetails const * const details)
 		}
 		return;
 	}
-	_currentTest = retrieveTest(details);
+
+	Test* test = Test::GetTestList().find(details);
+	if (test == nullptr)
+	{
+		string errorMessage = "Impossible to retrieve test ";
+		errorMessage += details->testName;
+		throw runtime_error(errorMessage);
+	}
+	_currentTest = test;
 	_nextTestBackup = _currentTest->m_nextTest;
 	_iterationDone = false;
 	_executing = true;

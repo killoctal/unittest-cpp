@@ -39,7 +39,6 @@ namespace UnitTest
 
 		ParameterizedManager();
 		virtual ~ParameterizedManager();
-		Test* const retrieveTest(TestDetails const * const details);
 		void iterate(TestParameterAbstract* const parameterized);
 		bool stackParameter(TestParameterAbstract* const parameterized, bool & outFirstIndex);
 		bool hasMoreIndexes(TestParameterAbstract* const parameterized);

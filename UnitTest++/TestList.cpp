@@ -1,5 +1,6 @@
 #include "TestList.h"
 #include "Test.h"
+#include "TestDetails.h"
 
 #include <cassert>
 
@@ -28,6 +29,18 @@ namespace UnitTest {
    Test* TestList::GetHead() const
    {
       return m_head;
+   }
+
+   Test* const TestList::find(TestDetails const * const details)
+   {
+      for (Test* iTest = GetHead(); iTest != nullptr; iTest = iTest->m_nextTest)
+      {
+         if (iTest->m_details.sameTest(*details))
+         {
+            return iTest;
+         }
+      }
+      return nullptr;
    }
 
    ListAdder::ListAdder(TestList& list, Test* test)
