@@ -103,16 +103,16 @@ namespace UnitTest {
 	   return true;
    }
 
-   int RunTestsCmd(int argc, char**argv, char const* suiteArgument, char const* testArgument, char const* ignoreParamArgument)
+   int RunTestsCmd(int argc, char**argv)
    {
       SuitePredicate predicate;
 
       bool specific = false;
-      specific |= readSuiteArgument(predicate, argc, argv, suiteArgument);
-      specific |= readTestArgument(predicate, argc, argv, testArgument);
+      specific |= readSuiteArgument(predicate, argc, argv, "--suite");
+      specific |= readTestArgument(predicate, argc, argv, "--test");
 	  specific |= readTestArgument(predicate, argc, argv, "");
 
-	  readIgnoreParamArgument(argc, argv, ignoreParamArgument);
+      readIgnoreParamArgument(argc, argv, "--ignoreparam");
 
       if (!specific)
       {

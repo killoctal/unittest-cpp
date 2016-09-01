@@ -23,7 +23,7 @@ namespace UnitTest {
 	*  myTests.exe --suite MySuite1 MyOtherSuite --test MySpecialTest MyOtherTest --ignoreparam pzMyPlatforms[0,2,3] pzMyParam[4,8]
 	*  myTests.exe MySpecialTest MyOtherTest --suite MySuite1
 	*/
-   UNITTEST_LINKAGE int RunTestsCmd(int argc, char**argv, char const* suiteArgument = "--suite", char const* testArgument = "--test", char const* ignoreParamArgument = "--ignoreparam");
+   UNITTEST_LINKAGE int RunTestsCmd(int argc, char**argv);
 
    struct True
    {
