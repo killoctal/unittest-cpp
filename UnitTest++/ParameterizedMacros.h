@@ -4,7 +4,7 @@
 #include "TestParameter.h"
 
 
-#define UNITTEST_SET_TEST_PARAMETER_LISTENER(Type, Name, ListenerPtr, SetUpBody) \
+#define UNITTEST_SET_TEST_PARAMETER_LISTENER(Type, Name, ListenerPtr) \
 	class ParameterizedCreator##Name \
 	{ \
 	public: \
@@ -16,14 +16,16 @@
 			static UnitTest::TestParameter<Type> instance(#Name, create(), ListenerPtr); \
 			return instance; \
 		} \
-		static vector<Type> create() { vector<Type> values; SetUpBody return values; } \
+		static vector<Type> create() { vector<Type> values; createInternal(values); return values; } \
+		static void createInternal(vector<Type> & values); \
 	} static parameterizedCreator##Name##Instance; \
 	\
-	static UnitTest::TestParameter<Type> & Name(parameterizedCreator##Name##Instance.globalInstance)
+	static UnitTest::TestParameter<Type> & Name(parameterizedCreator##Name##Instance.globalInstance); \
+	void ParameterizedCreator##Name::createInternal(vector<Type> & values)
 
 
-#define UNITTEST_SET_TEST_PARAMETER(Type, Name, SetUpBody) \
-	UNITTEST_SET_TEST_PARAMETER_LISTENER(Type, Name, nullptr, SetUpBody)
+#define UNITTEST_SET_TEST_PARAMETER(Type, Name) \
+	UNITTEST_SET_TEST_PARAMETER_LISTENER(Type, Name, nullptr)
 
 
 #ifndef UNITTEST_DISABLE_SHORT_MACROS

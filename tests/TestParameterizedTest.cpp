@@ -15,15 +15,16 @@ SUITE(ParameterizedTest)
 	string simpleVowels;
 	int simpleVowelsHitCount = 0;
 
-	SET_TEST_PARAMETER(string, pzVowel, {
+	SET_TEST_PARAMETER(string, pzVowel)
+	{
 		values.push_back("A");
 		values.push_back("E");
 		values.push_back("I");
 		values.push_back("O");
 		values.push_back("U");
 		values.push_back("Y");
-	});
-
+	}
+	
 	TEST(SimpleVowelConcat)
 	{
 		simpleVowels += pzVowel();
@@ -50,7 +51,9 @@ SUITE(ParameterizedTest)
 	bool enteredEmpty = false;
 	int hitCountEmpty = 0;
 
-	SET_TEST_PARAMETER(int, pzEmpty, {});
+	SET_TEST_PARAMETER(int, pzEmpty)
+	{
+	}
 
 	TEST(WhenNoParameters_throwsException)
 	{
@@ -80,9 +83,10 @@ SUITE(ParameterizedTest)
 	int hitCountSingle = 0;
 	static int singleValueSuiteSum = 0;
 
-	SET_TEST_PARAMETER(int, pzSingle, {
+	SET_TEST_PARAMETER(int, pzSingle)
+	{
 		values.push_back(2);
-	});
+	}
 
 	TEST(WhenSingleValue_singleExecution)
 	{
@@ -112,10 +116,11 @@ SUITE(ParameterizedTest)
 
 	//////////
 
-	SET_TEST_PARAMETER(string, pzOneTwo, {
+	SET_TEST_PARAMETER(string, pzOneTwo)
+	{
 		values.push_back("1");
 		values.push_back("2");
-	});
+	}
 
 	string nestedParameters;
 	TEST(NestedParameters)
@@ -160,9 +165,10 @@ SUITE(ParameterizedTest)
 
 	//////////
 
-	SET_TEST_PARAMETER(int, pzSingleBis, {
+	SET_TEST_PARAMETER(int, pzSingleBis)
+	{
 		values.push_back(3);
-	});
+	}
 
 	TEST(FailedMessage_ContainsIndexes)
 	{
@@ -289,9 +295,10 @@ SUITE(ParameterizedTest)
 
 	//////////
 
-	SET_TEST_PARAMETER(string, pzVowelPartial, {
+	SET_TEST_PARAMETER(string, pzVowelPartial)
+	{
 		values = pzVowel.values();
-	});
+	}
 
 	struct Initializer
 	{
@@ -377,9 +384,10 @@ SUITE(ParameterizedTest)
 		}
 	} initializer4pzIgnoredByNameVowelInstance;
 
-	SET_TEST_PARAMETER(string, pzIgnoredByNameVowel, {
+	SET_TEST_PARAMETER(string, pzIgnoredByNameVowel)
+	{
 		values = pzVowel.values();
-	});
+	}
 
 	string ignoreSomeVowelsByName_Global;
 	TEST(Ignore_IgnoreByName_Global)
@@ -409,9 +417,10 @@ SUITE(ParameterizedTest)
 
 	//////////
 
-	SET_TEST_PARAMETER(string, pzIgnoredByNameVowelSome, {
+	SET_TEST_PARAMETER(string, pzIgnoredByNameVowelSome)
+	{
 		values = pzVowel.values();
-	});
+	}
 
 	string ignoreByNameRangeEmptyIsAllowed;
 	TEST(Ignore_IgnoreByNameRange_EmptyIsAllowed)
