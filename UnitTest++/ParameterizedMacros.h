@@ -17,7 +17,7 @@
 			return instance; \
 		} \
 		static vector<Type> create() { vector<Type> values; createInternal(values); return values; } \
-		static void createInternal(vector<Type> & values); \
+		inline static void createInternal(vector<Type> & values); \
 	} static parameterizedCreator##Name##Instance; \
 	\
 	static UnitTest::TestParameter<Type> & Name(parameterizedCreator##Name##Instance.globalInstance); \
