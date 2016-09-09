@@ -12,15 +12,22 @@ namespace UnitTest {
    class Timer;
 
    /**
+    * Run tests/suites using custom selection from command line.
+	*
 	* Commands:
-	*  --test One or multiple test names to execute (specify "--test" is optional if it is the first argument), can be combined with --suite
+	*  --test One or multiple test names to execute, can be combined with --suite
 	*  --suite One or multiple suite names to execute, can be combined with --test
 	*
+	* Special feature: You do not have to specify explicitely --test and --suite, you
+	* can mix suite names and test names and the cmd will find the way. The
+	* constraint is that it must have no arguments beginning with --.
+	* For disabling this feature, set allowImplicitArgs=false
+	*
 	* Usage examples:
-	*  myTests.exe --suite MySuite1 MyOtherSuite --test MySpecialTest MyOtherTest
-	*  myTests.exe MySpecialTest MyOtherTest --suite MySuite1
+	*  Explicit: myTests.exe --suite MySuite1 MyOtherSuite --test MySpecialTest MyOtherTest
+	*  Implicit: myTests.exe MySpecialTest MyOtherTest MySuite1
 	*/
-   UNITTEST_LINKAGE int RunTestsCmd(int argc, char**argv);
+   UNITTEST_LINKAGE int RunTestsCmd(int argc, char**argv, bool allowImplicitArgs = true);
    
    UNITTEST_LINKAGE int RunAllTests();
 
