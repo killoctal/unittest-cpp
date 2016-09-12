@@ -1,6 +1,8 @@
 #ifndef UNITTEST_TESTPARAMETER_H
 #define UNITTEST_TESTPARAMETER_H
 
+#pragma warning(disable: 4512)
+
 #include <string>
 #include <vector>
 #include <algorithm>

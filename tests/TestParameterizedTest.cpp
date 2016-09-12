@@ -1,5 +1,7 @@
 #include "UnitTest++/UnitTest++.h"
 
+#pragma warning(disable: 4512)
+
 #include <string>
 #include "UnitTest++/TestParameter.h"
 #include "UnitTest++/ParameterizedManager.h"
@@ -24,7 +26,7 @@ SUITE(ParameterizedTest)
 		values.push_back("U");
 		values.push_back("Y");
 	}
-	
+
 	TEST(SimpleVowelConcat)
 	{
 		simpleVowels += pzVowel();
@@ -51,9 +53,12 @@ SUITE(ParameterizedTest)
 	bool enteredEmpty = false;
 	int hitCountEmpty = 0;
 
+#pragma warning(push)
+#pragma warning(disable: 4100)
 	SET_TEST_PARAMETER(int, pzEmpty)
 	{
 	}
+#pragma warning(pop) 
 
 	TEST(WhenNoParameters_throwsException)
 	{
