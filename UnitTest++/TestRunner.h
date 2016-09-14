@@ -17,6 +17,7 @@ namespace UnitTest {
 	* Commands:
 	*  --test One or multiple test names to execute, can be combined with --suite
 	*  --suite One or multiple suite names to execute, can be combined with --test
+	*  --ignoreparam One or multiple test parameter name, with index(es) specified, using this syntax: pzMyParam[4,8,12,7]
 	*
 	* Special feature: You do not have to specify explicitely --test and --suite, you
 	* can mix suite names and test names and the cmd will find the way. The
@@ -26,6 +27,7 @@ namespace UnitTest {
 	* Usage examples:
 	*  Explicit: myTests.exe --suite MySuite1 MyOtherSuite --test MySpecialTest MyOtherTest
 	*  Implicit: myTests.exe MySpecialTest MyOtherTest MySuite1
+	*  Ignore param: myTests.exe --suite MySuite1 --ignoreparam pzMyPlatforms[0,2,3] pzMyParam[4,8]
 	*/
    UNITTEST_LINKAGE int RunTestsCmd(int argc, char**argv, bool allowImplicitArgs);
    UNITTEST_LINKAGE int RunTestsCmd(int argc, char**argv); // Important: keep version with same signature as int main()

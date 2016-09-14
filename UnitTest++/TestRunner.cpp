@@ -5,11 +5,21 @@
 #include "TimeHelpers.h"
 #include "MemoryOutStream.h"
 #include "PredicateCmdBuilder.h"
+#include "ParameterizedManager.h"
 
 #include <cstring>
 
 
 namespace UnitTest {
+
+   void loadIgnoredIndexes(const ArgumentsReader & arguments)
+   {
+      vector<string> ignoreParams = arguments.extractValues("--ignoreparam");
+      for (size_t i = 0; i < ignoreParams.size(); i++)
+      {
+         ParameterizedManager::getInstance().ignoreIndexes(ignoreParams[i]);
+      }
+   }
 
    int RunAllTests()
    {
@@ -23,6 +33,7 @@ namespace UnitTest {
       SuitePredicate predicate;
       ArgumentsReader arguments(argc, argv);
       PredicateCmdBuilder::fillSuitePredicate(arguments, predicate, allowImplicitArgs);
+      loadIgnoredIndexes(arguments);
 
       TestReporterStdout reporter;
       TestRunner runner(reporter);
